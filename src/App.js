@@ -1,6 +1,7 @@
-
 import React from 'react';
 import axios from 'axios';
+import './App.css';
+import Button from 'react-bootstrap/Button';
 
 class App extends React.Component {
   constructor(props) {
@@ -46,31 +47,33 @@ class App extends React.Component {
   };
 
   render() {
+    const { locationData, error, errorMsg } = this.state;
+    const mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY_API}&center=${locationData.lat},${locationData.lon}&zoom=13&size=400x400`;
+
     return (
-      <>
-        <form onSubmit={this.handleGetCityInfo}>
+      <div className="app-container">
+        <form onSubmit={this.handleGetCityInfo} className="form">
           <label htmlFor=""> Enter a City Name:
             <input type="text" onInput={this.handleCityInput} />
           </label>
-          <button type="submit">Explore!</button>
+          <Button variant="outline-primary" type="submit">Explore</Button>
         </form>
 
-        {
-          this.state.error
-            ? <p>{this.state.errorMsg}</p>
-            : (
-              <div>
-                <p>Location: {this.state.locationData.display_name}</p>
-                <p>Latitude: {this.state.locationData.lat}</p>
-                <p>Longitude: {this.state.locationData.lon}</p>
-              </div>
-            )
-        }
-      </>
+        {error ? (
+          <p>{errorMsg}</p>
+        ) : (
+          <div className="location-container">
+            <p>Location: {locationData.display_name}</p>
+            <p>Latitude: {locationData.lat}</p>
+            <p>Longitude: {locationData.lon}</p>
+            <div className="map-container">
+              <img src={mapUrl} alt="Map" className="map" />
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
-
-
 }
 
 export default App;

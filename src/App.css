@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #EAF6FF;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.location-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-container {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.map {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
