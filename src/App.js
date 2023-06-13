@@ -69,7 +69,10 @@ class App extends React.Component {
       </>
     );
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 21c7a84d (Upload Lab-6)
 }
 
 export default App;
