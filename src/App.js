@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 import Button from 'react-bootstrap/Button';
+import Weather from './Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class App extends React.Component {
       locationData: {},
       error: false,
       errorMsg: ''
+      forecastData: [],
     };
   }
 
@@ -45,6 +47,23 @@ class App extends React.Component {
       });
     }
   };
+
+  getWeatherForecast = async () => {
+    try{
+      let weatherUrl = '${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.city}';
+      let weatherDataAxios = await axios.get(weatherUrl);
+      let forecastData = weatherDataAxios.data;
+      this.setState({
+        forecastData,
+      });
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMessage: error.message,
+      });
+
+    }
+  }
 
   render() {
     const { locationData, error, errorMsg } = this.state;
