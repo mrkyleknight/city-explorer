@@ -21,7 +21,7 @@
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
 
-Name of feature: City-Explorer
+Name of feature: Asynchronous code, and APIs
 
 Estimate of time needed to complete: 3 hours
 Start time: 3pm
@@ -29,6 +29,36 @@ Start time: 3pm
 Finish time: 6pm
 
 Actual time needed to complete: 180min
+
+Name of feature: Custom Servers with Node and Express
+
+Estimate of time needed to complete: 3 hours
+Start time: 3pm
+
+Finish time: 10pm
+
+Actual time needed to complete: 420min
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
