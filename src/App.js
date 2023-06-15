@@ -11,7 +11,7 @@ class App extends React.Component {
       city: '',
       locationData: {},
       error: false,
-      errorMsg: ''
+      errorMsg: '',
       forecastData: [],
     };
   }
@@ -40,6 +40,9 @@ class App extends React.Component {
         error: false,
         errorMsg: ''
       });
+
+      
+      this.getWeatherForecast();
     } catch (error) {
       this.setState({
         error: true,
@@ -49,8 +52,8 @@ class App extends React.Component {
   };
 
   getWeatherForecast = async () => {
-    try{
-      let weatherUrl = '${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.city}';
+    try {
+      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.city}`;
       let weatherDataAxios = await axios.get(weatherUrl);
       let forecastData = weatherDataAxios.data;
       this.setState({
@@ -59,14 +62,13 @@ class App extends React.Component {
     } catch (error) {
       this.setState({
         error: true,
-        errorMessage: error.message,
+        errorMsg: error.message,
       });
-
     }
-  }
+  };
 
   render() {
-    const { locationData, error, errorMsg } = this.state;
+    const { locationData, error, errorMsg, forecastData } = this.state;
     const mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY_API}&center=${locationData.lat},${locationData.lon}&zoom=13&size=400x400`;
 
     return (
@@ -88,6 +90,7 @@ class App extends React.Component {
             <div className="map-container">
               <img src={mapUrl} alt="Map" className="map" />
             </div>
+            {forecastData.length > 0 && <Weather forecastData={forecastData} />}
           </div>
         )}
       </div>
