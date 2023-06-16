@@ -13,6 +13,8 @@ class App extends React.Component {
       error: false,
       errorMsg: '',
       forecastData: [],
+
+      
     };
   }
 
@@ -42,7 +44,7 @@ class App extends React.Component {
       });
 
       
-      this.getWeatherForecast();
+      this.getWeatherForecast(lat, lon);
     } catch (error) {
       this.setState({
         error: true,
@@ -51,14 +53,25 @@ class App extends React.Component {
     }
   };
 
-  getWeatherForecast = async () => {
+  getWeatherForecast = async (lat, lon) => {
     try {
-      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.city}`;
-      let weatherDataAxios = await axios.get(weatherUrl);
+      // let weatherUrl = `${process.env.REACT_APP_SERVER}/weather`, {params: {lat: lat, lon: lon}};
+      let weatherDataAxios = await axios.get(`${process.env.REACT_APP_SERVER}/weather`, {params: {lat: lat, lon: lon}});
       let forecastData = weatherDataAxios.data;
+      console.log(forecastData);
       this.setState({
         forecastData,
-      });
+      })
+
+
+    let movieUrl = `${process.env.REACT_APP_SERVER}/movie?searchQuery=${this.state.city}`
+
+    let movieDataFromAxios = await axios.get(movieUrl);
+
+    console.log(movieDataFromAxios.data);
+
+
+
     } catch (error) {
       this.setState({
         error: true,
@@ -97,5 +110,6 @@ class App extends React.Component {
     );
   }
 }
+
 
 export default App;
