@@ -37,6 +37,10 @@
   }
 }
 
+.weather-movie-container {
+  display: flex;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;

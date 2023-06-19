@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Weather from './Weather';
+import Movie from './Movie';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends React.Component {
       error: false,
       errorMsg: '',
       forecastData: [],
+      moviesData: [],
 
       
     };
@@ -45,6 +47,7 @@ class App extends React.Component {
 
       
       this.getWeatherForecast(lat, lon);
+      this.getMovieData();
     } catch (error) {
       this.setState({
         error: true,
@@ -62,16 +65,6 @@ class App extends React.Component {
       this.setState({
         forecastData,
       })
-
-
-    let movieUrl = `${process.env.REACT_APP_SERVER}/movie?searchQuery=${this.state.city}`
-
-    let movieDataFromAxios = await axios.get(movieUrl);
-
-    console.log(movieDataFromAxios.data);
-
-
-
     } catch (error) {
       this.setState({
         error: true,
@@ -79,6 +72,24 @@ class App extends React.Component {
       });
     }
   };
+
+  getMovieData = async () => {
+    try {
+      let movieUrl = `${process.env.REACT_APP_SERVER}/movie?searchQuery=${this.state.city}`
+
+      let movieDataFromAxios = await axios.get(movieUrl);
+      this.setState({moviesData: movieDataFromAxios.data})
+
+      console.log(movieDataFromAxios.data);
+
+      
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMsg: error.message,
+      });
+    }
+  }
 
   render() {
     const { locationData, error, errorMsg, forecastData } = this.state;
@@ -103,7 +114,15 @@ class App extends React.Component {
             <div className="map-container">
               <img src={mapUrl} alt="Map" className="map" />
             </div>
+            <div className="weather-movie-container">
             {forecastData.length > 0 && <Weather forecastData={forecastData} />}
+
+            {this.state.moviesData.length > 0 && <Movie movieData={this.state.moviesData} />}
+
+            </div>
+             
+              
+            
           </div>
         )}
       </div>
