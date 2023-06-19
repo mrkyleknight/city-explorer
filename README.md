@@ -40,6 +40,7 @@ Finish time: 10pm
 Actual time needed to complete: 420min
 
 
+![WRRC](public/wrrc.png)
 
 
 
